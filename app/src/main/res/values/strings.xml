@@ -1,0 +1,193 @@
+<resources>
+    <string name="app_name">Road 1971</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Rent Anything</string>
+    <string name="menu_requests">My Requests</string>
+    <string name="menu_payment">Payment</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Contact Us</string>
+    <string name="rent_excavator">Rent Excavator</string>
+    <string name="excavator">Excavator</string>
+    <string name="rent_a_cycle">Rent A Cycle</string>
+    <string name="cycle">Cycle</string>
+    <string name="rent_a_cng">Rent A CNG</string>
+    <string name="cng">CNG</string>
+    <string name="rent_a_bus">Rent A Bus</string>
+    <string name="bus">Bus</string>
+    <string name="motorcycle_ride">Motorcycle Ride</string>
+    <string name="motorcycle">Motorcycle</string>
+    <string name="rent_a_micro">Rent A Micro</string>
+    <string name="micro_bus">Micro Bus</string>
+    <string name="rent_a_car">Rent A Car</string>
+    <string name="car">Car</string>
+    <string name="rent_truck">Rent Truck</string>
+    <string name="truck">Truck</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_5_">5+</string>
+    <string name="vehicle_size">Vehicle Size?</string>
+
+    <string-array name="vehicleType">
+        <item>Select Vehicle Type</item>
+        <item>Open</item>
+        <item>Covered</item>
+        <item>Refrigerated Van</item>
+        <item>Tipper/ Drum Truck</item>
+        <item>Petroleum Truck</item>
+        <item>Concrete Mixer</item>
+        <item>Trailer</item>
+    </string-array>
+
+    <string-array name="vehicleSize">
+        <item>Select Vehicle Size</item>
+        <item>7 Feet</item>
+        <item>9 Feet</item>
+        <item>12 Feet</item>
+        <item>14 Feet</item>
+        <item>16 Feet</item>
+        <item>20 Feet</item>
+        <item>23 Feet</item>
+        <item>40 Feet</item>
+    </string-array>
+
+    <string-array name="itemType">
+        <item>Select Item Type</item>
+        <item>Garments</item>
+        <item>Electronics &amp; Electric</item>
+        <item>Stationary</item>
+    </string-array>
+
+    <string-array name="hoursCar">
+        <item>Select Hours</item>
+        <item>4 Hours</item>
+        <item>5 Hours</item>
+        <item>6 Hours</item>
+        <item>7 Hours</item>
+        <item>8 Hours</item>
+        <item>9 Hours</item>
+        <item>10 Hours</item>
+        <item>11 Hours</item>
+        <item>12+ Hours</item>
+    </string-array>
+    <string-array name="hoursExcavator">
+        <item>Select Hours</item>
+        <item>8 Hours</item>
+        <item>16 Hours</item>
+        <item>24 Hours</item>
+    </string-array>
+    <string-array name="hoursCycle">
+        <item>Select Hours</item>
+        <item>1 Hour</item>
+        <item>2 Hours</item>
+        <item>3 Hours</item>
+        <item>4 Hours</item>
+        <item>5 Hours</item>
+        <item>6 Hours</item>
+        <item>7 Hours</item>
+        <item>8 Hours</item>
+        <item>9 Hours</item>
+        <item>10 Hours</item>
+        <item>11 Hours</item>
+        <item>12+ Hours</item>
+    </string-array>
+    <string-array name="typeCar">
+        <item>Select Preferred Type</item>
+        <item>Normal</item>
+        <item>Premium</item>
+
+    </string-array>
+    <string-array name="typeExcavator">
+        <item>Select Preferred Type</item>
+        <item>Excavator</item>
+        <item>Paluda</item>
+
+    </string-array>
+    <string-array name="microSeat">
+        <item>Select Seat Type</item>
+        <item>7 Seat</item>
+        <item>9 Seat</item>
+        <item>11 Seat</item>
+        <item>12 Seat</item>
+
+    </string-array>
+    <string-array name="busType">
+        <item>Select Bus Type</item>
+        <item>Non-AC</item>
+        <item>Non-AC (Business Class)</item>
+        <item>AC</item>
+        <item>AC(Business Class)</item>
+
+    </string-array>
+    <string-array name="busSeat">
+        <item>Select Seat Type</item>
+        <item>20 Seat</item>
+        <item>21 Seat</item>
+        <item>22 Seat</item>
+        <item>23 Seat</item>
+        <item>24 Seat</item>
+        <item>25 Seat</item>
+        <item>26 Seat</item>
+        <item>27 Seat</item>
+        <item>28 Seat</item>
+        <item>29 Seat</item>
+        <item>30 Seat</item>
+        <item>31 Seat</item>
+        <item>32 Seat</item>
+        <item>33 Seat</item>
+        <item>34 Seat</item>
+        <item>35 Seat</item>
+        <item>36 Seat</item>
+        <item>37 Seat</item>
+        <item>38 Seat</item>
+        <item>39 Seat</item>
+        <item>40 Seat</item>
+        <item>41 Seat</item>
+        <item>42 Seat</item>
+        <item>43 Seat</item>
+        <item>44 Seat</item>
+        <item>45 Seat</item>
+        <item>46 Seat</item>
+        <item>47 Seat</item>
+        <item>48 Seat</item>
+        <item>49 Seat</item>
+        <item>50 Seat</item>
+
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="truck_load_from">Truck Load From</string>
+    <string name="truck_unload_to">Truck Unload To</string>
+    <string name="how_many_truck_do_you_need">How Many Truck Do You Need?</string>
+    <string name="product_description">Product Description</string>
+    <string name="_5_ton_fish">5 Ton Fish</string>
+    <string name="submit">Review</string>
+    <string name="add_labour">Add Labour</string>
+    <string name="api_key">AIzaSyD9kix4UdxfUq5UgOo2JdXxevUy5EJ4BjE</string>
+    <string name="how_many_car_do_you_need">How Many Car Do You Need?</string>
+    <string name="pickup_location">Pickup Location</string>
+    <string name="drop_location">Drop Location</string>
+    <string name="pick_your_time">Pick Your Time</string>
+    <string name="pick_your_date">Pick Your Date</string>
+    <string name="hours_applicable_for_outside_city">Hours (Applicable For Outside City)</string>
+    <string name="additional_requirement_optional">Additional Requirement (Optional)</string>
+    <string name="how_many_bike_do_you_need">How Many Bike Do You Need?</string>
+    <string name="how_many_bus_do_you_need">How Many Bus Do You Need?</string>
+    <string name="bus_type">Bus Type</string>
+    <string name="preferred_seat_no">Preferred Seat No.</string>
+    <string name="bus_background">Bus Background</string>
+    <string name="how_many_cng_do_you_need">How Many CNG Do You Need?</string>
+    <string name="enter_verification_code">Enter Verification Code</string>
+
+</resources>

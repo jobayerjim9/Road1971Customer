@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+
+        android:layout_height="250dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/microReviewDate"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_date"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="11/11/2019"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/microReviewTime"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_time"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="10:30 PM"
+            android:textColor="@color/colorPrimaryDark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/microReviewType"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_car_badge"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="Premium"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/microReviewHours"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_sand_timer"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="6 Hours"
+            android:textColor="@color/colorPrimaryDark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/microReviewNoCar"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_car"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="@string/_1"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/microSeatType"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_seat"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="7 Seats"
+            android:textColor="@color/colorPrimaryDark" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/microReviewDetails"
+        style="@android:style/Widget.Material.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_weight="1"
+        android:drawableStart="@drawable/ic_align_left"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/googlesans_medium"
+        android:gravity="center_vertical"
+        android:text="1 Ton Fabric"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <Button
+        android:id="@+id/microReviewPublish"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/googlesans_black"
+        android:text="Publish For Bidding!"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent" />
+
+</LinearLayout>

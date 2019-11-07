@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.road.road1971user.view.navigation.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_request"
+        android:name="com.road.road1971user.view.navigation.request.RequestFragment"
+        android:label="@string/menu_requests"
+        tools:layout="@layout/fragment_request" />
+
+    <fragment
+        android:id="@+id/nav_payment"
+        android:name="com.road.road1971user.view.navigation.payment.PaymentFragment"
+        android:label="@string/menu_payment"
+        tools:layout="@layout/fragment_payment" />
+
+    <fragment
+        android:id="@+id/nav_share"
+        android:name="com.road.road1971user.view.navigation.share.ShareFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_share" />
+
+    <fragment
+        android:id="@+id/nav_contact"
+        android:name="com.road.road1971user.view.navigation.contact.ContactFragment"
+        android:label="@string/menu_send"
+        tools:layout="@layout/fragment_contact" />
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="com.road.road1971user.view.navigation.DashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+</navigation>

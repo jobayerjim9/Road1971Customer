@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.RentTruckActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.1"
+        app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
+        app:layout_constraintEnd_toEndOf="@+id/nestedScrollView"
+        app:layout_constraintStart_toStartOf="@+id/nestedScrollView"
+        app:layout_constraintTop_toBottomOf="@+id/rentTruckToolbar"
+        app:srcCompat="@drawable/ic_rent_truck"
+        android:contentDescription="@string/rent_truck" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/rentTruckToolbar"
+        app:title="Rent Truck"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:theme="@style/ToolbarColoredBackArrow"
+        app:titleTextColor="@android:color/background_light" />
+
+    <ScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/submitButtonTruck"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rentTruckToolbar"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/how_many_truck_do_you_need"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:text="@string/how_many_truck_do_you_need"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <RadioGroup
+                android:id="@+id/trackRequiredGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/truckNeed1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_1" />
+
+                <RadioButton
+                    android:id="@+id/truckNeed2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_2" />
+
+                <RadioButton
+                    android:id="@+id/truckNeed3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_3" />
+
+                <RadioButton
+                    android:id="@+id/truckNeed4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_4" />
+
+                <RadioButton
+                    android:id="@+id/truckNeed5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_5" />
+
+                <RadioButton
+                    android:id="@+id/truckNeed5Plus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_5_" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/loadLocationTruck"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:drawable/screen_background_light_transparent"
+                android:drawableStart="@drawable/ic_location_search"
+                android:drawableEnd="@drawable/ic_arrow"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/truck_load_from"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <Button
+                android:id="@+id/unloadLocationTruck"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:drawable/screen_background_light_transparent"
+                android:drawableStart="@drawable/ic_city"
+                android:drawableEnd="@drawable/ic_arrow"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/truck_unload_to"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <Spinner
+                android:id="@+id/vehicleTypeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp" />
+
+            <Spinner
+                android:id="@+id/vehicleSizeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/pickDateTruck"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:drawable/screen_background_light_transparent"
+                android:drawableStart="@drawable/ic_date"
+                android:drawableEnd="@drawable/ic_arrow"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/pick_your_date"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <Button
+                android:id="@+id/pickTimeTruck"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:drawable/screen_background_light_transparent"
+                android:drawableStart="@drawable/ic_time"
+                android:drawableEnd="@drawable/ic_arrow"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/pick_your_time"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <Spinner
+                android:id="@+id/selectProductType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/product_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:gravity="center_vertical"
+                android:text="@string/product_description"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp">
+
+                <EditText
+                    android:id="@+id/productDetailsTruck"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryBackground"
+                    android:ems="10"
+                    android:fontFamily="@font/googlesans_regular"
+                    android:gravity="start|top"
+                    android:hint="@string/_5_ton_fish"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:lines="4"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardElevation="8dp"
+                app:cardMaxElevation="8dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/googlesans_medium"
+                        android:gravity="center_vertical"
+                        android:text="@string/add_labour"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                        android:id="@+id/number_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        app:backGroundColor="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/textView7"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:textSize="8sp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submitButtonTruck"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/googlesans_black"
+        android:text="@string/submit"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nestedScrollView" />
+</androidx.constraintlayout.widget.ConstraintLayout>

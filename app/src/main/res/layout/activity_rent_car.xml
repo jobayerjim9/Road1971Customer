@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.RentCarActivity">
+
+    <ImageView
+        android:id="@+id/rentCarBg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.05"
+        android:src="@drawable/ic_rent_car"
+        app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rentCarToolbar" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/rentCarToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:theme="@style/ToolbarColoredBackArrow"
+        app:title="Rent Car"
+        app:titleTextColor="@android:color/background_light" />
+
+    <ScrollView
+        android:id="@+id/nestedScrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/reviewButtonCar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rentCarToolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:text="@string/how_many_car_do_you_need"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <RadioGroup
+                android:id="@+id/carRequiredGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/carRequired1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_1" />
+
+                <RadioButton
+                    android:id="@+id/carRequired2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_2" />
+
+                <RadioButton
+                    android:id="@+id/carRequired3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_3" />
+
+                <RadioButton
+                    android:id="@+id/carRequired4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_4" />
+
+                <RadioButton
+                    android:id="@+id/carRequired5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_5" />
+
+                <RadioButton
+                    android:id="@+id/carRequired5Plus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_5_" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/pickLocationCar"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:drawable/screen_background_light_transparent"
+                android:drawableStart="@drawable/ic_location_search"
+                android:drawableEnd="@drawable/ic_arrow"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/pickup_location"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <Button
+                android:id="@+id/dropLocationCar"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:drawable/screen_background_light_transparent"
+                android:drawableStart="@drawable/ic_location"
+                android:drawableEnd="@drawable/ic_arrow"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/drop_location"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <Button
+                android:id="@+id/datePickCar"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:drawable/screen_background_light_transparent"
+                android:drawableStart="@drawable/ic_date"
+                android:drawableEnd="@drawable/ic_arrow"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/pick_your_date"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <Button
+                android:id="@+id/timePickCar"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:drawable/screen_background_light_transparent"
+                android:drawableStart="@drawable/ic_time"
+                android:drawableEnd="@drawable/ic_arrow"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@string/pick_your_time"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:text="@string/hours_applicable_for_outside_city"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/hoursSpinnerCar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:text="Car Type"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/typeSpinnerCar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/googlesans_medium"
+                android:text="Additional Requirement (Optional)"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/detailsCar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/colorPrimaryBackground"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:lines="4"
+                android:maxLines="4" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/reviewButtonCar"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/googlesans_black"
+        android:text="@string/submit"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rentCarBg" />
+</androidx.constraintlayout.widget.ConstraintLayout>

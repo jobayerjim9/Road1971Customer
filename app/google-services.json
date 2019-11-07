@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "144986916300",
+    "firebase_url": "https://road-1971-67515.firebaseio.com",
+    "project_id": "road-1971-67515",
+    "storage_bucket": "road-1971-67515.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144986916300:android:96ff00447f5c02069c4969",
+        "android_client_info": {
+          "package_name": "com.road.road1971user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144986916300-aebljnf5ej90qh9cvvtcfljpsav9hpd1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.road.road1971user",
+            "certificate_hash": "c8f013c11faf8edbae3c9085d55735dd5502b47f"
+          }
+        },
+        {
+          "client_id": "144986916300-caveob3ek8jnuj07i3hi693sd6cbhoka.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSU3PzfxtesSUKD0EJyrEjRKMxEY-82cY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144986916300-caveob3ek8jnuj07i3hi693sd6cbhoka.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+
+        android:layout_height="250dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/truckReviewDate"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_date"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="11/11/2019"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/truckReviewTime"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_time"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="10:30 PM"
+            android:textColor="@color/colorPrimaryDark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/truckReviewType"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_car"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="Covered"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/truckReviewSize"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_size"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="16 Feet"
+            android:textColor="@color/colorPrimaryDark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/truckReviewProduct"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_cart"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="Garments"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/truckReviewLabour"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_labour"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="@string/_1"
+            android:textColor="@color/colorPrimaryDark" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/truckReviewNoTruck"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_truck"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="@string/_1"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:id="@+id/truckReviewDetails"
+            style="@android:style/Widget.Material.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_align_left"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/googlesans_medium"
+            android:gravity="center_vertical"
+            android:text="1 Ton Fabric"
+            android:textColor="@color/colorPrimaryDark" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/truckReviewPublish"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/googlesans_black"
+        android:text="Publish For Bidding!"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent" />
+
+</LinearLayout>
