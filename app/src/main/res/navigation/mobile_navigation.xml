@@ -7,36 +7,36 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.road.road1971user.view.navigation.home.HomeFragment"
+        android:name="com.road.road1971user.view.fragment.nav.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_request"
-        android:name="com.road.road1971user.view.navigation.request.RequestFragment"
+        android:name="com.road.road1971user.view.fragment.nav.RequestFragment"
         android:label="@string/menu_requests"
         tools:layout="@layout/fragment_request" />
 
     <fragment
         android:id="@+id/nav_payment"
-        android:name="com.road.road1971user.view.navigation.payment.PaymentFragment"
+        android:name="com.road.road1971user.view.fragment.nav.PaymentFragment"
         android:label="@string/menu_payment"
         tools:layout="@layout/fragment_payment" />
 
     <fragment
         android:id="@+id/nav_share"
-        android:name="com.road.road1971user.view.navigation.share.ShareFragment"
+        android:name="com.road.road1971user.view.fragment.nav.ShareFragment"
         android:label="@string/menu_share"
         tools:layout="@layout/fragment_share" />
 
     <fragment
         android:id="@+id/nav_contact"
-        android:name="com.road.road1971user.view.navigation.contact.ContactFragment"
+        android:name="com.road.road1971user.view.fragment.nav.ContactFragment"
         android:label="@string/menu_send"
         tools:layout="@layout/fragment_contact" />
     <fragment
         android:id="@+id/nav_dashboard"
-        android:name="com.road.road1971user.view.navigation.DashboardFragment"
+        android:name="com.road.road1971user.view.fragment.nav.DashboardFragment"
         android:label="Dashboard"
         tools:layout="@layout/fragment_dashboard" />
 </navigation>

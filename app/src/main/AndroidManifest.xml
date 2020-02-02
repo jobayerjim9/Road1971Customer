@@ -14,20 +14,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.RentExcavatorActivity"
-            android:theme="@style/AppThemeBlackAccent"/>
-        <activity android:name=".view.activity.RentCycleActivity"
+        <activity android:name=".view.activity.FixTripGmapActivity"></activity>
+        <activity android:name=".view.activity.FixTripDetailsActivity" />
+        <activity android:name=".view.activity.BidDetailsActivity" />
+        <activity
+            android:name=".view.activity.RentExcavatorActivity"
             android:theme="@style/AppThemeBlackAccent" />
-        <activity android:name=".view.activity.RentCngActivity"
-            android:theme="@style/AppThemeBlackAccent"/>
-        <activity android:name=".view.activity.RentBusActivity"
-            android:theme="@style/AppThemeBlackAccent"/>
-        <activity android:name=".view.activity.BikeRideActivity"
-            android:theme="@style/AppThemeBlackAccent"/>
-        <activity android:name=".view.activity.RentMicroActivity"
-            android:theme="@style/AppThemeBlackAccent"/>
-        <activity android:name=".view.activity.RentCarActivity"
-            android:theme="@style/AppThemeBlackAccent"/>
+        <activity
+            android:name=".view.activity.RentCycleActivity"
+            android:theme="@style/AppThemeBlackAccent" />
+        <activity
+            android:name=".view.activity.RentCngActivity"
+            android:theme="@style/AppThemeBlackAccent" />
+        <activity
+            android:name=".view.activity.RentBusActivity"
+            android:theme="@style/AppThemeBlackAccent" />
+        <activity
+            android:name=".view.activity.BikeRideActivity"
+            android:theme="@style/AppThemeBlackAccent" />
+        <activity
+            android:name=".view.activity.RentMicroActivity"
+            android:theme="@style/AppThemeBlackAccent" />
+        <activity
+            android:name=".view.activity.RentCarActivity"
+            android:theme="@style/AppThemeBlackAccent" />
         <activity
             android:name=".view.activity.RentTruckActivity"
             android:theme="@style/AppThemeBlackAccent" />
@@ -49,9 +59,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/api_key"/>
+            android:value="@string/api_key" />
     </application>
 
 </manifest>

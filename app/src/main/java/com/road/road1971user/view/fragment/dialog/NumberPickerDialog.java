@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.NumberPicker;
 
 import androidx.annotation.NonNull;
@@ -14,15 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-
-import com.road.road1971user.R;
 import com.road.road1971user.view.activity.BikeRideActivity;
 import com.road.road1971user.view.activity.RentBusActivity;
 import com.road.road1971user.view.activity.RentCarActivity;
+import com.road.road1971user.view.activity.RentCycleActivity;
 import com.road.road1971user.view.activity.RentMicroActivity;
 import com.road.road1971user.view.activity.RentTruckActivity;
-
-import java.util.Objects;
 
 public class NumberPickerDialog extends DialogFragment {
 
@@ -64,6 +59,9 @@ public class NumberPickerDialog extends DialogFragment {
                 }else if(getTag().equals("BusNumberPicker"))
                 {
                     RentBusActivity.setBusRecquired(numberPicker.getValue());
+                }else if(getTag().equals("CycleNumberPicker"))
+                {
+                    RentCycleActivity.setCycleRequired(numberPicker.getValue());
                 }
 
             }

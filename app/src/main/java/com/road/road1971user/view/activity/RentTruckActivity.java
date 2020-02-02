@@ -1,9 +1,5 @@
 package com.road.road1971user.view.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -21,17 +17,19 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.TypeFilter;
-import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.firebase.auth.FirebaseAuth;
 import com.road.road1971user.R;
+import com.road.road1971user.model.MyLatLng;
 import com.road.road1971user.model.RentTruckData;
 import com.road.road1971user.model.TimeStamp;
 import com.road.road1971user.view.fragment.dialog.NumberPickerDialog;
@@ -44,13 +42,14 @@ import java.util.Objects;
 
 public class RentTruckActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private int month,year,day,hours=-1,minute,labour;
-    private double slat=23.7975253,slng=90.4355208,dlat=23.7988931,dlng=90.4378817;
+    private double slat,slng,dlat,dlng;
     //private double slat,slng,dlat,dlng;
     private String loadLocation,unloadLocation,truckSize,truckType,productType;
-    int AUTOCOMPLETE_REQUEST_CODE = 1;
+
     private static int truckReckquired=0;
     private Button loadLocationTruck,unloadLocationTruck,pickDateTruck,pickTimeTruck;
     private List<Place.Field> fields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.ID, Place.Field.NAME);
+    int AUTOCOMPLETE_REQUEST_CODE = 1;
     private RadioGroup trackRequiredGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +120,7 @@ public class RentTruckActivity extends AppCompatActivity implements DatePickerDi
                 }
                 else  {
                     TimeStamp timeStamp=new TimeStamp(day,month,year,hours,minute);
-                    RentTruckData rentTruckData=new RentTruckData(truckReckquired,labour,new LatLng(slat,slng),new LatLng(dlat,dlng),timeStamp,truckType,truckSize,productType,productDetails,loadLocation,unloadLocation);
+                    RentTruckData rentTruckData=new RentTruckData(truckReckquired,labour,new MyLatLng(slat,slng),new MyLatLng(dlat,dlng),timeStamp,truckType,truckSize,productType,productDetails,loadLocation,unloadLocation, FirebaseAuth.getInstance().getUid());
 
                     RentTruckReviewDialog rentTruckReviewDialog = new RentTruckReviewDialog(rentTruckData);
 
@@ -159,7 +158,7 @@ public class RentTruckActivity extends AppCompatActivity implements DatePickerDi
             }
         });
 // Initialize the SDK
-        Places.initialize(getApplicationContext(), getResources().getString(R.string.api_key));
+
 
 // Create a new Places client instance
       // PlacesClient placesClient = Places.createClient(this);

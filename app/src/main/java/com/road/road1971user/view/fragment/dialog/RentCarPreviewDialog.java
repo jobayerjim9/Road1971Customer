@@ -1,11 +1,9 @@
 package com.road.road1971user.view.fragment.dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -23,9 +21,15 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.road.road1971user.R;
 import com.road.road1971user.model.CarRentData;
 
@@ -36,7 +40,7 @@ public class RentCarPreviewDialog extends DialogFragment implements OnMapReadyCa
     private Context context;
     private MapView mapView;
     private GoogleMap mMap;
-
+    private LatLng source,destination;
     public RentCarPreviewDialog(CarRentData carRentData) {
         this.carRentData = carRentData;
     }
@@ -48,6 +52,8 @@ public class RentCarPreviewDialog extends DialogFragment implements OnMapReadyCa
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = Objects.requireNonNull(getActivity()).getLayoutInflater();
         View v = inflater.inflate(R.layout.rent_car_post_preview, null);
+        source=new LatLng(carRentData.getSource().getLat(),carRentData.getSource().getLng());
+        destination=new LatLng(carRentData.getDestination().getLat(),carRentData.getDestination().getLng());
         mapView=v.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
@@ -74,15 +80,38 @@ public class RentCarPreviewDialog extends DialogFragment implements OnMapReadyCa
                 progressDialog.setCancelable(false);
                 progressDialog.setMessage("Please Wait!");
                 progressDialog.show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressDialog.dismiss();
-                        Toast.makeText(context, "Posted Successfully", Toast.LENGTH_SHORT).show();
-                        dismiss();
-                        ((Activity) context).finish();
-                    }
-                },3000);
+               if(getTag().contains("CarRentPreview"))
+               {
+                   final DatabaseReference truckPost= FirebaseDatabase.getInstance().getReference().child("BidPosts").child("Car");
+                   String key=truckPost.push().getKey();
+                   truckPost.child(key).setValue(carRentData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                       @Override
+                       public void onComplete(@NonNull Task<Void> task) {
+                           if(task.isSuccessful())
+                           {
+                               Toast.makeText(context, "Request Has Been Posted For Bid!", Toast.LENGTH_SHORT).show();
+                               try {
+                                   Objects.requireNonNull(getActivity()).finish();
+                               } catch (NullPointerException e)
+                               {
+                                   e.printStackTrace();
+                               }
+                           }
+                           else
+                           {
+                               Toast.makeText(context, "Unsuccessful", Toast.LENGTH_SHORT).show();
+                           }
+                           progressDialog.dismiss();
+                       }
+                   }).addOnCanceledListener(new OnCanceledListener() {
+                       @Override
+                       public void onCanceled() {
+
+                           progressDialog.dismiss();
+                       }
+                   });
+               }
+
             }
         });
 
@@ -107,8 +136,8 @@ public class RentCarPreviewDialog extends DialogFragment implements OnMapReadyCa
         addMarkers();
         addPolyObjects();
         LatLngBounds.Builder bound = new LatLngBounds.Builder();
-        bound.include(carRentData.getSource());
-        bound.include(carRentData.getDestination());
+        bound.include(source);
+        bound.include(destination);
         LatLngBounds bounds = bound.build();
         final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 50);
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
@@ -123,19 +152,19 @@ public class RentCarPreviewDialog extends DialogFragment implements OnMapReadyCa
 
     private void addPolyObjects() {
         mMap.addPolyline((new PolylineOptions())
-                .add(carRentData.getSource(), carRentData.getDestination())
+                .add(source, destination)
                 .color(R.color.colorPrimaryDark)
                 .width(10f));
     }
 
     private void addMarkers() {
         mMap.addMarker(new MarkerOptions()
-                .position(carRentData.getSource())
+                .position(source)
                 .title(carRentData.getSourceName())
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
         mMap.addMarker(new MarkerOptions()
-                .position(carRentData.getDestination())
+                .position(destination)
                 .title(carRentData.getDestinationName())
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(slat, slng), 15.0f));

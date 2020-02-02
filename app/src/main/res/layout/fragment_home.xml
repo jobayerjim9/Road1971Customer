@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -22,15 +21,13 @@
             android:id="@+id/rentTruckCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="#C8E6C9"
-            app:cardCornerRadius="64dp">
+            app:cardCornerRadius="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -42,9 +39,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:contentDescription="@string/truck"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_rent_truck"
-                    android:contentDescription="@string/truck" />
+                    app:srcCompat="@drawable/ic_rent_truck" />
 
                 <TextView
                     android:id="@+id/rentTruckText"
@@ -65,14 +62,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/colorPrimaryBackground"
-            app:cardCornerRadius="64dp">
+            app:cardCornerRadius="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -85,8 +80,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="2dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_rent_car"
-                    android:contentDescription="@string/car" />
+                    android:contentDescription="@string/car"
+                    app:srcCompat="@drawable/ic_rent_car" />
 
                 <TextView
                     android:id="@+id/rentCarText"
@@ -114,7 +109,6 @@
             android:id="@+id/rentMicroCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
@@ -122,7 +116,7 @@
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/colorPrimaryBackground"
-            app:cardCornerRadius="64dp">
+            app:cardCornerRadius="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -134,9 +128,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:contentDescription="@string/micro_bus"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_rent_micro"
-                    android:contentDescription="@string/micro_bus" />
+                    app:srcCompat="@drawable/ic_rent_micro" />
 
                 <TextView
                     android:id="@+id/rentMicroText"
@@ -158,13 +152,12 @@
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/colorPrimaryBackground"
-            app:cardCornerRadius="64dp">
+            app:cardCornerRadius="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -177,8 +170,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="2dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_rent_motorcycle"
-                    android:contentDescription="@string/motorcycle" />
+                    android:contentDescription="@string/motorcycle"
+                    app:srcCompat="@drawable/ic_rent_motorcycle" />
 
                 <TextView
                     android:id="@+id/rentBikeText"
@@ -206,7 +199,6 @@
             android:id="@+id/rentBusCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
@@ -214,7 +206,7 @@
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/colorPrimaryBackground"
-            app:cardCornerRadius="64dp">
+            app:cardCornerRadius="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -227,9 +219,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:layout_weight="1"
+                    android:contentDescription="@string/bus"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_bus_stop"
-                    android:contentDescription="@string/bus" />
+                    app:srcCompat="@drawable/ic_bus_stop" />
 
                 <TextView
                     android:id="@+id/rentBusText"
@@ -251,13 +243,12 @@
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/colorPrimaryBackground"
-            app:cardCornerRadius="64dp">
+            app:cardCornerRadius="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -270,8 +261,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_rickshaw"
-                    android:contentDescription="@string/cng" />
+                    android:contentDescription="@string/cng"
+                    app:srcCompat="@drawable/ic_rickshaw" />
 
                 <TextView
                     android:id="@+id/rentCngText"
@@ -298,16 +289,14 @@
             android:id="@+id/rentCycleCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/colorPrimaryBackground"
-            app:cardCornerRadius="64dp">
+            app:cardCornerRadius="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -319,9 +308,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:contentDescription="@string/cycle"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_bicycle"
-                    android:contentDescription="@string/cycle" />
+                    app:srcCompat="@drawable/ic_bicycle" />
 
                 <TextView
                     android:id="@+id/rentCycleText"
@@ -344,14 +333,12 @@
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardBackgroundColor="@color/colorPrimaryBackground"
-            app:cardCornerRadius="64dp">
+            app:cardCornerRadius="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -365,8 +352,8 @@
                     android:layout_margin="16dp"
                     android:layout_marginStart="2dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_excavator"
-                    android:contentDescription="@string/excavator" />
+                    android:contentDescription="@string/excavator"
+                    app:srcCompat="@drawable/ic_excavator" />
 
                 <TextView
                     android:id="@+id/rentExcavatorText"

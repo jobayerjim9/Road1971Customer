@@ -1,17 +1,15 @@
 package com.road.road1971user.model;
 
-import com.google.android.gms.maps.model.LatLng;
-
 public class RentTruckData {
     private int totalTruck,labour;
-    private LatLng source,destination;
+    private MyLatLng source,destination;
     private TimeStamp timeStamp;
-    private String vehicleType,vehicleSize,itemType,productDescription,loadLocation,unloadLocation;
+    private String vehicleType,vehicleSize,itemType,productDescription,loadLocation,unloadLocation,uid,status,key;
 
     public RentTruckData() {
     }
 
-    public RentTruckData(int totalTruck, int labour, LatLng source, LatLng destination, TimeStamp timeStamp, String vehicleType, String vehicleSize, String itemType, String productDescription, String loadLocation,String unloadLocation) {
+    public RentTruckData(int totalTruck, int labour, MyLatLng source, MyLatLng destination, TimeStamp timeStamp, String vehicleType, String vehicleSize, String itemType, String productDescription, String loadLocation,String unloadLocation,String uid) {
         this.totalTruck = totalTruck;
         this.labour = labour;
         this.source = source;
@@ -23,6 +21,32 @@ public class RentTruckData {
         this.productDescription = productDescription;
         this.loadLocation=loadLocation;
         this.unloadLocation=unloadLocation;
+        this.uid=uid;
+        this.status="Open";
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getLoadLocation() {
@@ -57,19 +81,19 @@ public class RentTruckData {
         this.totalTruck = totalTruck;
     }
 
-    public LatLng getSource() {
+    public MyLatLng getSource() {
         return source;
     }
 
-    public void setSource(LatLng source) {
+    public void setSource(MyLatLng source) {
         this.source = source;
     }
 
-    public LatLng getDestination() {
+    public MyLatLng getDestination() {
         return destination;
     }
 
-    public void setDestination(LatLng destination) {
+    public void setDestination(MyLatLng destination) {
         this.destination = destination;
     }
 

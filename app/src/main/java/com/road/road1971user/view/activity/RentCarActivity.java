@@ -1,9 +1,5 @@
 package com.road.road1971user.view.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -21,8 +17,11 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.TypeFilter;
@@ -30,8 +29,10 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.firebase.auth.FirebaseAuth;
 import com.road.road1971user.R;
 import com.road.road1971user.model.CarRentData;
+import com.road.road1971user.model.MyLatLng;
 import com.road.road1971user.model.TimeStamp;
 import com.road.road1971user.view.fragment.dialog.NumberPickerDialog;
 import com.road.road1971user.view.fragment.dialog.RentCarPreviewDialog;
@@ -47,7 +48,7 @@ public class RentCarActivity extends AppCompatActivity implements DatePickerDial
     private int month,year,day,hours=-1,minute;
     private List<Place.Field> fields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.ID, Place.Field.NAME);
     int AUTOCOMPLETE_REQUEST_CODE = 1;
-    private LatLng source,destination;
+    private MyLatLng source,destination;
     private String sourceName,destinationName,hoursNeed,carType;
     private Button pickLocationCar,dropLocationCar,timePickCar,datePickCar,reviewButtonCar;
     @Override
@@ -137,7 +138,7 @@ public class RentCarActivity extends AppCompatActivity implements DatePickerDial
                 else
                 {
                     TimeStamp timeStamp=new TimeStamp(day,month,year,hours,minute);
-                    CarRentData carRentData=new CarRentData(source,destination,sourceName,destinationName,hoursNeed,carType,detailsCarText,timeStamp,carRequired);
+                    CarRentData carRentData=new CarRentData(source,destination,sourceName,destinationName,hoursNeed,carType,detailsCarText,timeStamp,carRequired, FirebaseAuth.getInstance().getUid());
                     RentCarPreviewDialog rentCarPreviewDialog=new RentCarPreviewDialog(carRentData);
                     rentCarPreviewDialog.setCancelable(true);
                     rentCarPreviewDialog.show(getSupportFragmentManager(),"CarRentPreview");
@@ -267,14 +268,14 @@ public class RentCarActivity extends AppCompatActivity implements DatePickerDial
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 if(AUTOCOMPLETE_REQUEST_CODE==1)
                 {
-                    source=place.getLatLng();
+                    source=new MyLatLng(Objects.requireNonNull(place.getLatLng()));
 
                     sourceName=place.getName();
                     pickLocationCar.setText(sourceName);
                 }
                 else if(AUTOCOMPLETE_REQUEST_CODE==2)
                 {
-                    destination=place.getLatLng();
+                    destination=new MyLatLng(Objects.requireNonNull(place.getLatLng()));
 
                     destinationName=place.getName();
                     dropLocationCar.setText(destinationName);

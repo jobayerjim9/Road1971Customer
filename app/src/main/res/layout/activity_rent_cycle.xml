@@ -7,7 +7,7 @@
     tools:context=".view.activity.RentCycleActivity">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/rentCycleBg"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:alpha="0.05"
@@ -62,45 +62,46 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:id="@+id/cycleRequiredGroup"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radioButton5"
+                    android:id="@+id/cycleRequired1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/_1" />
 
                 <RadioButton
-                    android:id="@+id/radioButton4"
+                    android:id="@+id/cycleRequired2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/_2" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/cycleRequired3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/_3" />
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/cycleRequired4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/_4" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/cycleRequired5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/_5" />
 
                 <RadioButton
-                    android:id="@+id/truckNeed1"
+                    android:id="@+id/cycleRequired5Plus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -108,7 +109,7 @@
             </RadioGroup>
 
             <Button
-                android:id="@+id/unloadLocation2"
+                android:id="@+id/pickLocationCycle"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginTop="8dp"
@@ -124,7 +125,7 @@
                 android:textColor="@color/colorPrimaryDark" />
 
             <Button
-                android:id="@+id/button9"
+                android:id="@+id/pickDateCycle"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginTop="8dp"
@@ -140,7 +141,7 @@
                 android:textColor="@color/colorPrimaryDark" />
 
             <Button
-                android:id="@+id/button10"
+                android:id="@+id/pickTimeCycle"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginTop="8dp"
@@ -152,22 +153,6 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="Pick Start Time"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimaryDark" />
-
-            <Button
-                android:id="@+id/button12"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginTop="8dp"
-                android:background="@android:drawable/screen_background_light_transparent"
-                android:drawableLeft="@drawable/ic_alert"
-                android:drawableRight="@drawable/ic_arrow"
-                android:drawablePadding="4dp"
-                android:fontFamily="@font/googlesans_medium"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:text="Pick End Time"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryDark" />
 
@@ -184,7 +169,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/detailsCycle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -200,7 +185,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/submitCycle"
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:background="@color/colorPrimaryDark"
@@ -212,5 +197,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nestedScrollView2" />
+        app:layout_constraintTop_toBottomOf="@+id/nestedScrollView2"
+        app:layout_constraintVertical_bias="1.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

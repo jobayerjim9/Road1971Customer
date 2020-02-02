@@ -1,9 +1,5 @@
 package com.road.road1971user.view.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -21,14 +17,19 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.firebase.auth.FirebaseAuth;
 import com.road.road1971user.R;
+import com.road.road1971user.model.MyLatLng;
 import com.road.road1971user.model.RentBikeData;
 import com.road.road1971user.model.TimeStamp;
 import com.road.road1971user.view.fragment.dialog.NumberPickerDialog;
@@ -43,7 +44,7 @@ public class BikeRideActivity extends AppCompatActivity implements DatePickerDia
     private RadioGroup bikeRequiredGroup;
     private static int bikeRequired;
     private Button pickLocationBike,dropLocationBike,pickDateBike,pickTimeBike;
-    private LatLng source,destination;
+    private MyLatLng source,destination;
     private String sourceName,destinationName,hoursRequired;
     private int month,year,day,hours=-1,minute;
     int AUTOCOMPLETE_REQUEST_CODE = 1;
@@ -150,7 +151,7 @@ public class BikeRideActivity extends AppCompatActivity implements DatePickerDia
                 else
                 {
                     TimeStamp timeStamp=new TimeStamp(day,month,year,hours,minute);
-                    RentBikeData rentBikeData=new RentBikeData(source,destination,sourceName,destinationName,hoursRequired,additionalBikeText,timeStamp,bikeRequired);
+                    RentBikeData rentBikeData=new RentBikeData(source,destination,sourceName,destinationName,hoursRequired,additionalBikeText,timeStamp,bikeRequired, FirebaseAuth.getInstance().getUid());
                     RentBikePreviewDialog rentBikePreviewDialog=new RentBikePreviewDialog(rentBikeData);
                     rentBikePreviewDialog.setCancelable(true);
                     rentBikePreviewDialog.show(getSupportFragmentManager(),"RentBikePreview");
@@ -246,13 +247,13 @@ public class BikeRideActivity extends AppCompatActivity implements DatePickerDia
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 if(AUTOCOMPLETE_REQUEST_CODE==1)
                 {
-                    source=place.getLatLng();
+                    source=new MyLatLng(Objects.requireNonNull(place.getLatLng()));
                     sourceName=place.getName();
                     pickLocationBike.setText(sourceName);
                 }
                 else if(AUTOCOMPLETE_REQUEST_CODE==2)
                 {
-                    destination=place.getLatLng();
+                    destination=new MyLatLng(Objects.requireNonNull(place.getLatLng()));
                     destinationName=place.getName();
                     dropLocationBike.setText(destinationName);
                 }

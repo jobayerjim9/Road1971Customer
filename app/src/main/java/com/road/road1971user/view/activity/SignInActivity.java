@@ -1,8 +1,5 @@
 package com.road.road1971user.view.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseNetworkException;
@@ -24,7 +23,6 @@ import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
@@ -32,8 +30,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mukesh.OnOtpCompletionListener;
-import com.mukesh.OtpView;
 import com.road.road1971user.R;
 
 import java.util.concurrent.TimeUnit;
@@ -71,6 +67,9 @@ public class SignInActivity extends AppCompatActivity {
         signInState=findViewById(R.id.signInState);
         signInButton=findViewById(R.id.signInButton);
         otp_view=findViewById(R.id.otp_view);
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setMessage("Signing In!");
+        progressDialog.setCancelable(true);
 
         otp_view.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -172,6 +171,7 @@ public class SignInActivity extends AppCompatActivity {
                 mResendToken = token;
                 phoneNumberInput.setVisibility(View.GONE);
                 otp_view.setVisibility(View.VISIBLE);
+                signInButton.setVisibility(View.GONE);
                 // [START_EXCLUDE]
                 // Update UI
 
@@ -213,13 +213,20 @@ public class SignInActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
         // [START verify_with_code]
-        progressDialog=new ProgressDialog(this);
-        progressDialog.setMessage("Signing In!");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
+        }
+        try {
+            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+            signInWithPhoneAuthCredential(credential);
+        }
+        catch (Exception e)
+        {
+            mobile="+88"+phoneNumberInput.getEditText().getText().toString();
+            resendVerificationCode(mobile,mResendToken);
+        }
         // [END verify_with_code]
-        signInWithPhoneAuthCredential(credential);
+
     }
 
     // [START resend_verification]

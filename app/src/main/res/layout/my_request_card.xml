@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/requestMap"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            map:cameraZoom="13"
+            map:liteMode="true"
+            map:mapType="normal" />
+
+        <TextView
+            android:id="@+id/dateRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/googlesans_bold"
+            android:text="@string/date_placeholder"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <Button
+            android:id="@+id/viewDetailsRequest"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/colorPrimary"
+            android:text="View Details"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textIsSelectable="false" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

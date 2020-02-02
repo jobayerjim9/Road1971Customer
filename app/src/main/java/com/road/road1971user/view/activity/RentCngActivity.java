@@ -1,9 +1,5 @@
 package com.road.road1971user.view.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -18,14 +14,19 @@ import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.firebase.auth.FirebaseAuth;
 import com.road.road1971user.R;
+import com.road.road1971user.model.MyLatLng;
 import com.road.road1971user.model.RentBikeData;
 import com.road.road1971user.model.TimeStamp;
 import com.road.road1971user.view.fragment.dialog.NumberPickerDialog;
@@ -40,7 +41,7 @@ public class RentCngActivity extends AppCompatActivity implements DatePickerDial
     private static int cngRequired;
     private Button pickLocationCng,dropLocationCng,datePickCng,timePickCng;
     private int month,year,day,hours=-1,minute;
-    private LatLng source,destination;
+    private MyLatLng source,destination;
     private String sourceName,destinationName;
     private List<Place.Field> fields = Arrays.asList(Place.Field.LAT_LNG, Place.Field.ID, Place.Field.NAME);
     int AUTOCOMPLETE_REQUEST_CODE = 1;
@@ -64,23 +65,23 @@ public class RentCngActivity extends AppCompatActivity implements DatePickerDial
         cngRequiredGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId==R.id.carRequired1)
+                if(checkedId==R.id.cngRequired1)
                 {
                     cngRequired=1;
-                } else if (checkedId==R.id.carRequired2)
+                } else if (checkedId==R.id.cngRequired2)
                 {
                     cngRequired=2;
-                } else if (checkedId==R.id.carRequired3)
+                } else if (checkedId==R.id.cngRequired3)
                 {
                     cngRequired=3;
-                } else if (checkedId==R.id.carRequired4)
+                } else if (checkedId==R.id.cngRequired4)
                 {
                     cngRequired=4;
-                } else if (checkedId==R.id.carRequired5)
+                } else if (checkedId==R.id.cngRequired5)
                 {
                     cngRequired=5;
                 }
-                else if(checkedId==R.id.carRequired5Plus)
+                else if(checkedId==R.id.cngRequiredPlus)
                 {
                     NumberPickerDialog numberPickerDialog=new NumberPickerDialog();
                     numberPickerDialog.setCancelable(false);
@@ -150,10 +151,10 @@ public class RentCngActivity extends AppCompatActivity implements DatePickerDial
                 else
                 {
                     TimeStamp timeStamp=new TimeStamp(day,month,year,hours,minute);
-                    RentBikeData rentBikeData=new RentBikeData(source,destination,sourceName,destinationName,"Not Applicable",additionalBikeText,timeStamp,cngRequired);
+                    RentBikeData rentBikeData=new RentBikeData(source,destination,sourceName,destinationName,"Not Applicable",additionalBikeText,timeStamp,cngRequired, FirebaseAuth.getInstance().getUid());
                     RentBikePreviewDialog rentBikePreviewDialog=new RentBikePreviewDialog(rentBikeData);
                     rentBikePreviewDialog.setCancelable(true);
-                    rentBikePreviewDialog.show(getSupportFragmentManager(),"RentBikePreview");
+                    rentBikePreviewDialog.show(getSupportFragmentManager(),"RentCngPreview");
 
                 }
             }
@@ -214,13 +215,13 @@ public class RentCngActivity extends AppCompatActivity implements DatePickerDial
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 if(AUTOCOMPLETE_REQUEST_CODE==1)
                 {
-                    source=place.getLatLng();
+                    source=new MyLatLng(Objects.requireNonNull(place.getLatLng()));
                     sourceName=place.getName();
                     pickLocationCng.setText(sourceName);
                 }
                 else if(AUTOCOMPLETE_REQUEST_CODE==2)
                 {
-                    destination=place.getLatLng();
+                    destination=new MyLatLng(Objects.requireNonNull(place.getLatLng()));
                     destinationName=place.getName();
                     dropLocationCng.setText(destinationName);
                 }

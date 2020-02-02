@@ -1,13 +1,13 @@
 package com.road.road1971user.view.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.road.road1971user.R;
 import com.road.road1971user.model.UserProfile;
+
+import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
     private TextInputLayout nameText,emailText;
@@ -31,13 +33,25 @@ public class SignUpActivity extends AppCompatActivity {
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!nameText.getEditText().getText().toString().isEmpty() && !emailText.getEditText().getText().toString().isEmpty()) {
+                String name,email;
+                name= Objects.requireNonNull(nameText.getEditText()).getText().toString().trim();
+                email= Objects.requireNonNull(emailText.getEditText()).getText().toString().trim().toLowerCase();
+                if(name.isEmpty()) {
+                   nameText.setErrorEnabled(true);
+                   nameText.setError("Please Enter Your Name");
+                }
+                else if (email.isEmpty())
+                {
+                    emailText.setErrorEnabled(true);
+                    emailText.setError("Please Enter Your Email");
+                }
+                else
+                {
                     uploadToDatabase();
                 }
+
             }
         });
-
-
     }
 
     private void uploadToDatabase() {

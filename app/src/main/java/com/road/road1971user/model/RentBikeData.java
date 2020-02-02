@@ -1,17 +1,15 @@
 package com.road.road1971user.model;
 
-import com.google.android.gms.maps.model.LatLng;
-
 public class RentBikeData {
-    private LatLng source,destination;
-    private String sourceName,destinationName,hoursType,additional;
+    private MyLatLng source,destination;
+    private String sourceName,destinationName,hoursType,additional,uid,status,key;
     private TimeStamp timeStamp;
     private int bikeRequired;
 
     public RentBikeData() {
     }
 
-    public RentBikeData(LatLng source, LatLng destination, String sourceName, String destinationName, String hoursType, String additional, TimeStamp timeStamp, int bikeRequired) {
+    public RentBikeData(MyLatLng source, MyLatLng destination, String sourceName, String destinationName, String hoursType, String additional, TimeStamp timeStamp, int bikeRequired, String uid) {
         this.source = source;
         this.destination = destination;
         this.sourceName = sourceName;
@@ -20,21 +18,47 @@ public class RentBikeData {
         this.additional = additional;
         this.timeStamp = timeStamp;
         this.bikeRequired = bikeRequired;
+        this.uid=uid;
+        this.status="Open";
     }
 
-    public LatLng getSource() {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public MyLatLng getSource() {
         return source;
     }
 
-    public void setSource(LatLng source) {
+    public void setSource(MyLatLng source) {
         this.source = source;
     }
 
-    public LatLng getDestination() {
+    public MyLatLng getDestination() {
         return destination;
     }
 
-    public void setDestination(LatLng destination) {
+    public void setDestination(MyLatLng destination) {
         this.destination = destination;
     }
 

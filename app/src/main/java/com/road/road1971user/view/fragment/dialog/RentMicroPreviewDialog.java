@@ -1,11 +1,9 @@
 package com.road.road1971user.view.fragment.dialog;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -23,9 +21,15 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.road.road1971user.R;
 import com.road.road1971user.model.RentMicroData;
 
@@ -36,6 +40,7 @@ public class RentMicroPreviewDialog extends DialogFragment implements OnMapReady
     private Context context;
     private MapView mapView;
     private GoogleMap mMap;
+    private LatLng source,destination;
     public RentMicroPreviewDialog(RentMicroData rentMicroData) {
         this.rentMicroData = rentMicroData;
     }
@@ -47,6 +52,8 @@ public class RentMicroPreviewDialog extends DialogFragment implements OnMapReady
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = Objects.requireNonNull(getActivity()).getLayoutInflater();
         View v = inflater.inflate(R.layout.rent_micro_post_preview, null);
+        source=new LatLng(rentMicroData.getSource().getLat(),rentMicroData.getSource().getLng());
+        destination=new LatLng(rentMicroData.getDestination().getLat(),rentMicroData.getDestination().getLng());
         mapView=v.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
@@ -75,23 +82,56 @@ public class RentMicroPreviewDialog extends DialogFragment implements OnMapReady
         microReviewPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ProgressDialog progressDialog=new ProgressDialog(context);
-                progressDialog.setCancelable(false);
-                progressDialog.setMessage("Please Wait!");
-                progressDialog.show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressDialog.dismiss();
-                        Toast.makeText(context, "Posted Successfully", Toast.LENGTH_SHORT).show();
-                        dismiss();
-                        ((Activity) context).finish();
-                    }
-                },3000);
+
+               if(getTag().contains("RentMicroPreview"))
+               {
+                   final DatabaseReference truckPost= FirebaseDatabase.getInstance().getReference().child("BidPosts").child("Micro");
+                   uploadToDatabase(truckPost);
+               }
+               else if(getTag().contains("RentBusPreview"))
+               {
+                   final DatabaseReference truckPost= FirebaseDatabase.getInstance().getReference().child("BidPosts").child("Bus");
+                   uploadToDatabase(truckPost);
+               }
             }
         });
         builder.setView(v);
         return builder.create();
+    }
+
+    private void uploadToDatabase(@NonNull DatabaseReference truckPost) {
+        final ProgressDialog progressDialog=new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Please Wait!");
+        progressDialog.show();
+        String key=truckPost.push().getKey();
+        assert key != null;
+        truckPost.child(key).setValue(rentMicroData).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(context, "Request Has Been Posted For Bid!", Toast.LENGTH_SHORT).show();
+                    try {
+                        Objects.requireNonNull(getActivity()).finish();
+                    } catch (NullPointerException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(context, "Unsuccessful", Toast.LENGTH_SHORT).show();
+                }
+                progressDialog.dismiss();
+            }
+        }).addOnCanceledListener(new OnCanceledListener() {
+            @Override
+            public void onCanceled() {
+
+                progressDialog.dismiss();
+            }
+        });
     }
 
     @Override
@@ -108,8 +148,8 @@ public class RentMicroPreviewDialog extends DialogFragment implements OnMapReady
         addMarkers();
         addPolyObjects();
         LatLngBounds.Builder bound = new LatLngBounds.Builder();
-        bound.include(rentMicroData.getSource());
-        bound.include(rentMicroData.getDestination());
+        bound.include(source);
+        bound.include(destination);
         LatLngBounds bounds = bound.build();
         final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 50);
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
@@ -124,19 +164,19 @@ public class RentMicroPreviewDialog extends DialogFragment implements OnMapReady
 
     private void addPolyObjects() {
         mMap.addPolyline((new PolylineOptions())
-                .add(rentMicroData.getSource(), rentMicroData.getDestination())
+                .add(source,destination)
                 .color(R.color.colorPrimaryDark)
                 .width(10f));
     }
 
     private void addMarkers() {
         mMap.addMarker(new MarkerOptions()
-                .position(rentMicroData.getSource())
+                .position(source)
                 .title(rentMicroData.getSourceName())
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
         mMap.addMarker(new MarkerOptions()
-                .position(rentMicroData.getDestination())
+                .position(destination)
                 .title(rentMicroData.getDestinationName())
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(slat, slng), 15.0f));

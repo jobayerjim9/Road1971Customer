@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.FixTripGmapActivity">
+
+    <fragment
+        android:id="@+id/mapNearBy"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/viewDetailsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        app:contentPadding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fixTripTittle"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:drawableStart="@drawable/arrow_back_black"
+                android:fontFamily="@font/googlesans_black"
+                android:gravity="center_vertical"
+                android:text="Road Truck"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="#A5D6A7"
+                app:cardCornerRadius="4dp"
+                app:contentPadding="4dp">
+
+                <TextView
+                    android:id="@+id/sourcePick"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_source"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/googlesans_regular"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:padding="4dp"
+                    android:text="Where Do You Want To Start From?"
+                    android:textColor="@android:color/black" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="#A5D6A7"
+                app:cardCornerRadius="4dp"
+                app:contentPadding="4dp">
+
+                <TextView
+                    android:id="@+id/destinationPick"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_destination"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/googlesans_regular"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:padding="4dp"
+                    android:text="Select Your Destination"
+                    android:textColor="@android:color/black" />
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/viewDetailsButton"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/googlesans_black"
+        android:text="View Details"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
