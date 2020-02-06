@@ -143,7 +143,7 @@ public class HomeActivity extends AppCompatActivity {
         if (item.getItemId()==R.id.logoutButton)
         {
             FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(HomeActivity.this,SignInActivity.class));
+            startActivity(new Intent(HomeActivity.this,SignInActivityEmail.class));
             finish();
         }
         else if (item.getItemId()==R.id.runningTrip)

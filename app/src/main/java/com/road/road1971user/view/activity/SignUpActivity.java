@@ -21,29 +21,23 @@ import com.road.road1971user.model.UserProfile;
 import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
-    private TextInputLayout nameText,emailText;
+    private TextInputLayout nameText;
     private Button finishButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         nameText=findViewById(R.id.nameText);
-        emailText=findViewById(R.id.emailText);
+
         finishButton=findViewById(R.id.finishButton);
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name,email;
+                String name;
                 name= Objects.requireNonNull(nameText.getEditText()).getText().toString().trim();
-                email= Objects.requireNonNull(emailText.getEditText()).getText().toString().trim().toLowerCase();
                 if(name.isEmpty()) {
                    nameText.setErrorEnabled(true);
                    nameText.setError("Please Enter Your Name");
-                }
-                else if (email.isEmpty())
-                {
-                    emailText.setErrorEnabled(true);
-                    emailText.setError("Please Enter Your Email");
                 }
                 else
                 {
@@ -55,7 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void uploadToDatabase() {
-        UserProfile userProfile=new UserProfile(nameText.getEditText().getText().toString(),getIntent().getStringExtra("mobile"),emailText.getEditText().getText().toString());
+        UserProfile userProfile=new UserProfile(nameText.getEditText().getText().toString(),getIntent().getStringExtra("mobile"),getIntent().getStringExtra("email"));
         DatabaseReference profile= FirebaseDatabase.getInstance().getReference("user").child("UserProfile");
         if(FirebaseAuth.getInstance().getUid()!=null) {
             profile.child(FirebaseAuth.getInstance().getUid()).setValue(userProfile).addOnCompleteListener(new OnCompleteListener<Void>() {

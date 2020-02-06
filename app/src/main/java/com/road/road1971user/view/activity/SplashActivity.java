@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -55,7 +56,7 @@ public class SplashActivity extends AppCompatActivity {
                             checkSignUp();
                         }
                         else {
-                            startActivity(new Intent(SplashActivity.this, SignInActivity.class));
+                            startActivity(new Intent(SplashActivity.this, SignInActivityEmail.class));
                             finish();
                         }
 
@@ -80,7 +81,8 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Intent intent=new Intent(SplashActivity.this,SignInActivity.class);
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent=new Intent(SplashActivity.this,SignInActivityEmail.class);
                     startActivity(intent);
                     finish();
                 }

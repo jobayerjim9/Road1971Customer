@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.FixTripGmapActivity"></activity>
+        <activity android:name=".view.activity.SignInActivityEmail"
+            android:theme="@style/AppThemeBlackAccent"/>
+        <activity android:name=".view.activity.FixTripGmapActivity" />
         <activity android:name=".view.activity.FixTripDetailsActivity" />
         <activity android:name=".view.activity.BidDetailsActivity" />
         <activity

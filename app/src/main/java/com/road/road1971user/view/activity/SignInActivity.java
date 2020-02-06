@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,6 +45,9 @@ public class SignInActivity extends AppCompatActivity {
     private static final int STATE_SIGNIN_FAILED = 5;
     private static final int STATE_SIGNIN_SUCCESS = 6;
     private TextInputLayout phoneNumberInput;
+    private TextInputLayout emailInput;
+    private TextInputLayout passwordInput1;
+    private TextInputLayout passwordInput2;
     private TextView signInState;
     private Button signInButton;
     private TextInputLayout otp_view;
@@ -51,7 +55,7 @@ public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String mobile;
     // [END declare_auth]
-
+    private CardView emailPassLayout;
     private boolean mVerificationInProgress = false;
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
@@ -66,6 +70,10 @@ public class SignInActivity extends AppCompatActivity {
         phoneNumberInput=findViewById(R.id.phoneNumberInput);
         signInState=findViewById(R.id.signInState);
         signInButton=findViewById(R.id.signInButton);
+        emailPassLayout=findViewById(R.id.emailPassLayout);
+        emailInput=findViewById(R.id.emailInput);
+        passwordInput1=findViewById(R.id.passwordInput1);
+        passwordInput2=findViewById(R.id.passwordInput2);
         otp_view=findViewById(R.id.otp_view);
         progressDialog=new ProgressDialog(this);
         progressDialog.setMessage("Signing In!");
@@ -122,8 +130,10 @@ public class SignInActivity extends AppCompatActivity {
                 // [END_EXCLUDE]
                 String code = credential.getSmsCode();
                 otp_view.getEditText().setText(code);
+                phoneNumberInput.setVisibility(View.GONE);
+
                 verifyPhoneNumberWithCode(mVerificationId, code);
-                signInWithPhoneAuthCredential(credential);
+               // signInWithPhoneAuthCredential(credential);
             }
 
             @Override
@@ -213,12 +223,21 @@ public class SignInActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
         // [START verify_with_code]
-        if (!progressDialog.isShowing()) {
-            progressDialog.show();
-        }
+
         try {
-            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-            signInWithPhoneAuthCredential(credential);
+           // PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+            signInState.setText("Phone Verified! Create Email & Password!");
+            otp_view.setVisibility(View.GONE);
+            emailPassLayout.setVisibility(View.VISIBLE);
+            signInButton.setVisibility(View.VISIBLE);
+            signInButton.setText("Create Account");
+            signInButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    signInWithEmailPass();
+                }
+            });
+            //signInWithPhoneAuthCredential(credential);
         }
         catch (Exception e)
         {
@@ -228,6 +247,78 @@ public class SignInActivity extends AppCompatActivity {
         // [END verify_with_code]
 
     }
+
+    private void signInWithEmailPass() {
+        String email=emailInput.getEditText().getText().toString();
+        String pass=passwordInput1.getEditText().getText().toString();
+        String confirmPass=passwordInput2.getEditText().getText().toString();
+        if (email.isEmpty())
+        {
+            emailInput.setErrorEnabled(true);
+            emailInput.setError("Enter Your Email Please!");
+        }
+        else if (pass.isEmpty())
+        {
+            passwordInput1.setErrorEnabled(true);
+            passwordInput1.setError("Enter Your Password Please!");
+        }
+        else if (confirmPass.isEmpty())
+        {
+            passwordInput2.setErrorEnabled(true);
+            passwordInput2.setError("Enter Your Password Again!");
+        }
+        else if (!pass.equals(confirmPass))
+        {
+            passwordInput2.setErrorEnabled(true);
+            passwordInput2.setError("Password Doesn't Match!");
+        }
+        else
+        {
+            mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful())
+                    {
+                        mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful())
+                                {
+                                    DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("user").child("UserProfile").child(task.getResult().getUser().getUid());
+                                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if(dataSnapshot.exists())
+                                            {
+                                                startActivity(new Intent(SignInActivity.this,HomeActivity.class));
+                                            }
+                                            else
+                                            {
+                                                Intent intent=new Intent(SignInActivity.this,SignUpActivity.class);
+                                                intent.putExtra("mobile",mobile);
+                                                intent.putExtra("email",email);
+                                                startActivity(intent);
+                                            }
+                                            progressDialog.dismiss();
+                                            finish();
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
+
+                    }
+                }
+            });
+        }
+    }
+
 
     // [START resend_verification]
     private void resendVerificationCode(String phoneNumber,
@@ -243,59 +334,46 @@ public class SignInActivity extends AppCompatActivity {
     // [END resend_verification]
 
     // [START sign_in_with_phone]
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, task.getResult().getUser().getUid());
-
-                            DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("user").child("UserProfile").child(task.getResult().getUser().getUid());
-                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if(dataSnapshot.exists())
-                                    {
-                                        startActivity(new Intent(SignInActivity.this,HomeActivity.class));
-                                    }
-                                    else
-                                    {
-                                        Intent intent=new Intent(SignInActivity.this,SignUpActivity.class);
-                                        intent.putExtra("mobile",mobile);
-                                        startActivity(intent);
-                                    }
-                                    progressDialog.dismiss();
-                                    finish();
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    progressDialog.dismiss();
-                                }
-                            });
-
-
-                            // [START_EXCLUDE]
-                            // [END_EXCLUDE]
-                        } else {
-                            // Sign in failed, display a message and update the UI
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                                // [START_EXCLUDE silent]
-                                signInState.setError("Invalid code.");
-                                // [END_EXCLUDE]
-                            }
-                            // [START_EXCLUDE silent]
-                            // Update UI
-
-                            // [END_EXCLUDE]
-                        }
-                    }
-                });
-    }
+//    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+//
+//
+//        mAuth.signInWithCredential(credential)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            // Sign in success, update UI with the signed-in user's information
+//                            Log.d(TAG, task.getResult().getUser().getUid());
+//
+//
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError databaseError) {
+//                                    progressDialog.dismiss();
+//                                }
+//                            });
+//
+//
+//                            // [START_EXCLUDE]
+//                            // [END_EXCLUDE]
+//                        } else {
+//                            // Sign in failed, display a message and update the UI
+//                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+//                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+//                                // The verification code entered was invalid
+//                                // [START_EXCLUDE silent]
+//                                signInState.setError("Invalid code.");
+//                                // [END_EXCLUDE]
+//                            }
+//                            // [START_EXCLUDE silent]
+//                            // Update UI
+//
+//                            // [END_EXCLUDE]
+//                        }
+//                    }
+//                });
+//    }
     // [END sign_in_with_phone]
 
     private void signOut() {
