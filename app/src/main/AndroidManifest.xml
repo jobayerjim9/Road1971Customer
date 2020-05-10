@@ -14,35 +14,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.SignInActivityEmail"
-            android:theme="@style/AppThemeBlackAccent"/>
+        <activity android:name=".view.activity.ProfileActivity"></activity>
+        <activity
+            android:name=".view.activity.SignInActivityEmail"
+            android:theme="@style/AppThemeBlackAccent" />
         <activity android:name=".view.activity.FixTripGmapActivity" />
         <activity android:name=".view.activity.FixTripDetailsActivity" />
         <activity android:name=".view.activity.BidDetailsActivity" />
         <activity
             android:name=".view.activity.RentExcavatorActivity"
-            android:theme="@style/AppThemeBlackAccent" />
+            android:theme="@style/AppThemeBlackAccentNorm" />
         <activity
             android:name=".view.activity.RentCycleActivity"
-            android:theme="@style/AppThemeBlackAccent" />
+            android:theme="@style/AppThemeBlackAccentNorm" />
         <activity
             android:name=".view.activity.RentCngActivity"
-            android:theme="@style/AppThemeBlackAccent" />
+            android:theme="@style/AppThemeBlackAccentNorm" />
         <activity
             android:name=".view.activity.RentBusActivity"
-            android:theme="@style/AppThemeBlackAccent" />
+            android:theme="@style/AppThemeBlackAccentNorm" />
         <activity
             android:name=".view.activity.BikeRideActivity"
-            android:theme="@style/AppThemeBlackAccent" />
+            android:theme="@style/AppThemeBlackAccentNorm" />
         <activity
             android:name=".view.activity.RentMicroActivity"
-            android:theme="@style/AppThemeBlackAccent" />
+            android:theme="@style/AppThemeBlackAccentNorm" />
         <activity
             android:name=".view.activity.RentCarActivity"
-            android:theme="@style/AppThemeBlackAccent" />
+            android:theme="@style/AppThemeBlackAccentNorm" />
         <activity
             android:name=".view.activity.RentTruckActivity"
-            android:theme="@style/AppThemeBlackAccent" />
+            android:theme="@style/AppThemeBlackAccentNorm" />
         <activity
             android:name=".view.activity.HomeActivity"
             android:label="@string/title_activity_home"
@@ -65,6 +67,17 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/api_key" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+
+        <service
+            android:name=".controller.notification.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

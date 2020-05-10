@@ -1,11 +1,15 @@
 package com.road.road1971user.view.activity;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +36,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,14 +49,19 @@ import com.road.road1971user.R;
 import com.road.road1971user.controller.helper.FetchURL;
 import com.road.road1971user.controller.helper.TaskLoadedCallback;
 import com.road.road1971user.model.DriverProfile;
+import com.road.road1971user.model.FareModel;
 import com.road.road1971user.model.FixTripDetailsModel;
+import com.road.road1971user.model.PromoCodeModel;
+import com.road.road1971user.model.PromoUsageModel;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Objects;
 
 public class FixTripDetailsActivity extends AppCompatActivity implements OnMapReadyCallback, TaskLoadedCallback {
     String type;
     double distance,disBackup,sourceLat,sourceLng,desLat,desLng;
-    int fare;
+    int fare = 0;
     TextView fareText,searchStatus,driverNameFixTrip;
     private GoogleMap mMap;
     private MarkerOptions source, destination;
@@ -67,6 +77,10 @@ public class FixTripDetailsActivity extends AppCompatActivity implements OnMapRe
     private boolean run=true;
     Marker marker;
     LinearLayout driverLayout;
+    private LinearLayout promoApplyLayout;
+    private TextView addPromoCode;
+    private EditText promoText;
+    private Button promoApplyButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,27 +96,19 @@ public class FixTripDetailsActivity extends AppCompatActivity implements OnMapRe
         Log.d("Source",sourceLat+" "+sourceLng);
         source=new MarkerOptions().position(new LatLng(sourceLat,sourceLng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         destination=new MarkerOptions().position(new LatLng(desLat,desLng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-        if(type.equals("Truck"))
+
+        if (distance < 40) {
+            setUpFare("InsideCity");
+        } else
         {
-            fare=(int)(distance*150)+300;
-        }
-        else if(type.equals("Car"))
-        {
-            fare=(int)(distance*17)+30;
-        }
-        else if(type.equals("Micro"))
-        {
-            fare=(int)(distance*40)+120;
-        }
-        else if(type.equals("Bike"))
-        {
-            fare=(int)(distance*11)+25;
-        }
-        else if(type.equals("Bus"))
-        {
-            fare=(int)(distance*150)+300;
+            setUpFare("OutsideCity");
+
         }
         fareText=findViewById(R.id.fareText);
+        promoApplyLayout = findViewById(R.id.promoApplyLayout);
+        addPromoCode = findViewById(R.id.addPromoCode);
+        promoText = findViewById(R.id.promoText);
+        promoApplyButton = findViewById(R.id.promoApplyButton);
         searchAgain=findViewById(R.id.searchAgain);
         backButton=findViewById(R.id.backButton);
         driverLayout=findViewById(R.id.driverLayout);
@@ -117,8 +123,7 @@ public class FixTripDetailsActivity extends AppCompatActivity implements OnMapRe
             }
         });
 
-        String place="Estimated Fare "+fare+" BDT";
-        fareText.setText(place);
+
         new FetchURL(FixTripDetailsActivity.this).execute(getUrl(source.getPosition(), destination.getPosition(), "driving"), "driving");
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.mapNearBy);
@@ -127,7 +132,9 @@ public class FixTripDetailsActivity extends AppCompatActivity implements OnMapRe
         confirmRide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fixTripDetailsModel=new FixTripDetailsModel(sourceLat,sourceLng,desLat,desLng,disBackup,fare,FirebaseAuth.getInstance().getUid(),type);
+                if (fare != 0) {
+                    fixTripDetailsModel = new FixTripDetailsModel(sourceLat, sourceLng, desLat, desLng, disBackup, fare, FirebaseAuth.getInstance().getUid(), type);
+
                     searchStatus.setVisibility(View.VISIBLE);
                     searchStatus.setText("Please Wait! Searching For Driver....!");
                     searchDriver(fixTripDetailsModel);
@@ -140,6 +147,10 @@ public class FixTripDetailsActivity extends AppCompatActivity implements OnMapRe
                             finish();
                         }
                     });
+                } else {
+                    Toast.makeText(FixTripDetailsActivity.this, "Your Fare Is Calculating! Please Wait!", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
@@ -151,7 +162,167 @@ public class FixTripDetailsActivity extends AppCompatActivity implements OnMapRe
                 }
             }
         });
+        addPromoCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addPromoCode.setVisibility(View.GONE);
+                promoApplyLayout.setVisibility(View.VISIBLE);
+            }
+        });
+        promoApplyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPromo();
+            }
+        });
         setUpEvent();
+    }
+
+    private void checkPromo() {
+        String promo = promoText.getText().toString().trim();
+        if (promo.isEmpty()) {
+            Toast.makeText(this, "Please Enter A Promo Code To Get Discount!", Toast.LENGTH_SHORT).show();
+        } else {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("PromoCodes").child(promo);
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        final PromoCodeModel promoCodeModel = dataSnapshot.getValue(PromoCodeModel.class);
+                        if (promoCodeModel != null) {
+                            if (promoCodeModel.isValid()) {
+                                Log.d("PromoDetails1", promoCodeModel.getPromoCode() + " " + promoCodeModel.getDiscountPercent());
+                                DatabaseReference usage = databaseReference.child("usingList").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()));
+                                usage.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            Log.d("PromoDetails2", promoCodeModel.getPromoCode() + " " + promoCodeModel.getDiscountPercent());
+                                            PromoUsageModel promoUsageModel = dataSnapshot.getValue(PromoUsageModel.class);
+                                            if (promoUsageModel != null) {
+                                                if (promoUsageModel.getNoOfTimeUsed() < promoCodeModel.getUsingLimit()) {
+                                                    Log.d("PromoDetails", promoCodeModel.getPromoCode() + " " + promoCodeModel.getDiscountPercent());
+                                                    int promoFare;
+
+                                                    double discount = fare * (promoCodeModel.getDiscountPercent() / 100.0);
+                                                    Log.d("Discount", discount + "");
+                                                    if (discount > promoCodeModel.getMaxDiscount()) {
+                                                        promoFare = fare - promoCodeModel.getMaxDiscount();
+                                                    } else {
+                                                        promoFare = (int) Math.round(fare - discount);
+                                                    }
+                                                    PromoUsageModel updateUsage = new PromoUsageModel(promoUsageModel.getNoOfTimeUsed() + 1);
+                                                    usage.setValue(updateUsage).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            String placeHolder = "Estimated Fare <strike>" + fare + "</strike> " + promoFare + " BDT";
+                                                            fareText.setText(Html.fromHtml(placeHolder));
+                                                            fare = promoFare;
+                                                            addPromoCode.setText("Promo Successfully Applied!");
+                                                            promoApplyLayout.setVisibility(View.GONE);
+                                                            addPromoCode.setVisibility(View.VISIBLE);
+                                                            addPromoCode.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View v) {
+                                                                    Toast.makeText(FixTripDetailsActivity.this, "Promo Already Applied", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            });
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Toast.makeText(FixTripDetailsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+
+
+                                                } else {
+                                                    Toast.makeText(FixTripDetailsActivity.this, "Promo Code Already Used!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        } else {
+                                            int promoFare;
+                                            double discount = fare * (promoCodeModel.getDiscountPercent() / 100.0);
+                                            Log.d("Discount", discount + "");
+                                            if (discount > promoCodeModel.getMaxDiscount()) {
+                                                promoFare = fare - promoCodeModel.getMaxDiscount();
+                                            } else {
+                                                promoFare = (int) Math.round(fare - discount);
+                                            }
+                                            PromoUsageModel updateUsage = new PromoUsageModel(1);
+                                            usage.setValue(updateUsage).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    String placeHolder = "Estimated Fare <strike>" + fare + "</strike> " + promoFare + " BDT";
+                                                    fareText.setText(Html.fromHtml(placeHolder));
+                                                    //fare=promoFare;
+                                                    promoApplyLayout.setVisibility(View.GONE);
+                                                    addPromoCode.setVisibility(View.VISIBLE);
+                                                    addPromoCode.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            Toast.makeText(FixTripDetailsActivity.this, "Promo Already Applied", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(FixTripDetailsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        Toast.makeText(FixTripDetailsActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    } else {
+                        Toast.makeText(FixTripDetailsActivity.this, "Invalid Promo Code!", Toast.LENGTH_SHORT).show();
+                        promoText.setText("");
+                        promoApplyLayout.setVisibility(View.GONE);
+                        addPromoCode.setVisibility(View.VISIBLE);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(FixTripDetailsActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    promoText.setText("");
+                    promoApplyLayout.setVisibility(View.GONE);
+                    addPromoCode.setVisibility(View.VISIBLE);
+                }
+            });
+        }
+
+    }
+
+    private void setUpFare(String path) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FareRate").child(path).child(type);
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FareModel fareModel = dataSnapshot.getValue(FareModel.class);
+                if (fareModel != null) {
+                    fare = (int) (distance * fareModel.getPerKm()) + fareModel.getBase();
+                    Log.d("EstimatedFare", fare + "");
+                    Log.d("BaseFare", fareModel.getBase() + "");
+                    String place = "Estimated Fare " + fare + " BDT";
+                    fareText.setText(place);
+                    addPromoCode.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void searchDriver(final FixTripDetailsModel fixTripDetailsModel) {
@@ -270,6 +441,7 @@ public class FixTripDetailsActivity extends AppCompatActivity implements OnMapRe
                     }
                     else
                     {
+                        addPromoCode.setVisibility(View.GONE);
                         searchAgain.setVisibility(View.GONE);
                         searchStatus.setText("Waiting For Driver Confirmation!");
                         cancelRide.setVisibility(View.VISIBLE);
@@ -291,6 +463,7 @@ public class FixTripDetailsActivity extends AppCompatActivity implements OnMapRe
 
                     if (fixTripDetailsModel.isAccept())
                     {
+                        addPromoCode.setVisibility(View.GONE);
                         cancelRide.setVisibility(View.GONE);
                         searchAgain.setVisibility(View.GONE);
                         Log.d("Driver Found","Done");

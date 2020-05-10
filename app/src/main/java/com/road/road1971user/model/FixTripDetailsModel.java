@@ -6,7 +6,7 @@ public class FixTripDetailsModel {
     private double sourceLat,sourceLng,desLat,desLng,distance;
     private int fare;
     private String requestorUid,driverId,type;
-    private boolean accept;
+    private boolean accept = false;
     private ArrayList<String> driversFound;
     public FixTripDetailsModel() {
 
@@ -21,6 +21,7 @@ public class FixTripDetailsModel {
         this.fare = fare;
         this.requestorUid = requestorUid;
         this.type = type;
+        this.accept = false;
     }
 
     public ArrayList<String> getDriversFound() {

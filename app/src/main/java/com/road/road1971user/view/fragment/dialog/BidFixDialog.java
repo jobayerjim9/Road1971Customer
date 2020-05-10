@@ -96,10 +96,16 @@ public class BidFixDialog extends DialogFragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.exists())
                 {
-                    Intent i = new Intent(context, FixTripGmapActivity.class);
-                    i.putExtra("type", type);
-                    startActivity(i);
-                    dismiss();
+                    try {
+                        Intent i = new Intent(context, FixTripGmapActivity.class);
+                        i.putExtra("type", type);
+                        startActivity(i);
+                        dismiss();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        dismiss();
+                    }
+
 
                 }
                 else

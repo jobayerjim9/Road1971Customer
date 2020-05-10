@@ -1,7 +1,7 @@
 package com.road.road1971user.model;
 
 public class UserProfile {
-    private String name,mobile,email;
+    private String name, mobile, email, token;
 
     public UserProfile() {
     }
@@ -10,6 +10,14 @@ public class UserProfile {
         this.name = name;
         this.mobile = mobile;
         this.email = email;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getName() {

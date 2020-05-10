@@ -10,12 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
@@ -33,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.road.road1971user.R;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class SignInActivity extends AppCompatActivity {
@@ -54,12 +57,14 @@ public class SignInActivity extends AppCompatActivity {
     // [START declare_auth]
     private FirebaseAuth mAuth;
     private String mobile;
+    ProgressDialog progressDialog;
     // [END declare_auth]
     private CardView emailPassLayout;
     private boolean mVerificationInProgress = false;
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
+    private CardView cardView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +74,7 @@ public class SignInActivity extends AppCompatActivity {
         }
         phoneNumberInput=findViewById(R.id.phoneNumberInput);
         signInState=findViewById(R.id.signInState);
+        cardView = findViewById(R.id.cardView);
         signInButton=findViewById(R.id.signInButton);
         emailPassLayout=findViewById(R.id.emailPassLayout);
         emailInput=findViewById(R.id.emailInput);
@@ -76,28 +82,28 @@ public class SignInActivity extends AppCompatActivity {
         passwordInput2=findViewById(R.id.passwordInput2);
         otp_view=findViewById(R.id.otp_view);
         progressDialog=new ProgressDialog(this);
-        progressDialog.setMessage("Signing In!");
+        progressDialog.setMessage("Creating Your Profile!");
         progressDialog.setCancelable(true);
 
-        otp_view.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.toString().length()==6)
-                {
-                    verifyPhoneNumberWithCode(mVerificationId,otp_view.getEditText().getText().toString());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        otp_view.getEditText().addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if(s.toString().length()==6)
+//                {
+//                    verifyPhoneNumberWithCode(mVerificationId,otp_view.getEditText().getText().toString());
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -112,14 +118,13 @@ public class SignInActivity extends AppCompatActivity {
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
-            public void onVerificationCompleted(PhoneAuthCredential credential) {
+            public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
                 // This callback will be invoked in two situations:
                 // 1 - Instant verification. In some cases the phone number can be instantly
                 //     verified without needing to contact or enter a verification code.
                 // 2 - Auto-retrieval. On some devices Google Play services can automatically
                 //     detect the incoming verification SMS and perform verification without
                 //     user action.
-                Log.d("SignIn", "onVerificationCompleted:" + credential);
                 // [START_EXCLUDE silent]
 
                 mVerificationInProgress = false;
@@ -129,10 +134,11 @@ public class SignInActivity extends AppCompatActivity {
                 // Update the UI and attempt sign in with the phone credential
                 // [END_EXCLUDE]
                 String code = credential.getSmsCode();
+                Log.d("onVerificationCompleted", code + "");
                 otp_view.getEditText().setText(code);
                 phoneNumberInput.setVisibility(View.GONE);
-
-                verifyPhoneNumberWithCode(mVerificationId, code);
+                otp_view.setVisibility(View.VISIBLE);
+                verifyPhoneNumberWithCode(credential);
                // signInWithPhoneAuthCredential(credential);
             }
 
@@ -220,38 +226,40 @@ public class SignInActivity extends AppCompatActivity {
 
         mVerificationInProgress = true;
     }
-    ProgressDialog progressDialog;
-    private void verifyPhoneNumberWithCode(String verificationId, String code) {
+
+    private void verifyPhoneNumberWithCode(PhoneAuthCredential credential) {
         // [START verify_with_code]
 
         try {
-           // PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
             signInState.setText("Phone Verified! Create Email & Password!");
-            otp_view.setVisibility(View.GONE);
+            cardView.setVisibility(View.GONE);
             emailPassLayout.setVisibility(View.VISIBLE);
             signInButton.setVisibility(View.VISIBLE);
             signInButton.setText("Create Account");
             signInButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    signInWithEmailPass();
+                    signInWithEmailPass(credential);
                 }
             });
             //signInWithPhoneAuthCredential(credential);
         }
         catch (Exception e)
         {
-            mobile="+88"+phoneNumberInput.getEditText().getText().toString();
-            resendVerificationCode(mobile,mResendToken);
+            //mobile="+88"+phoneNumberInput.getEditText().getText().toString();
+            //resendVerificationCode(mobile,mResendToken);
+            e.printStackTrace();
+            signInState.setText(e.getLocalizedMessage());
         }
         // [END verify_with_code]
 
     }
 
-    private void signInWithEmailPass() {
+    private void signInWithEmailPass(PhoneAuthCredential credential) {
         String email=emailInput.getEditText().getText().toString();
         String pass=passwordInput1.getEditText().getText().toString();
         String confirmPass=passwordInput2.getEditText().getText().toString();
+
         if (email.isEmpty())
         {
             emailInput.setErrorEnabled(true);
@@ -274,26 +282,28 @@ public class SignInActivity extends AppCompatActivity {
         }
         else
         {
+            progressDialog.show();
             mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful())
-                    {
+                    if (task.isSuccessful()) {
                         mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful())
-                                {
+                                if (task.isSuccessful()) {
+                                    FirebaseAuth.getInstance().getCurrentUser().linkWithCredential(credential).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                        @Override
+                                        public void onSuccess(AuthResult authResult) {
+                                            Log.d("Success", "Linked!");
+                                        }
+                                    });
                                     DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("user").child("UserProfile").child(task.getResult().getUser().getUid());
                                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            if(dataSnapshot.exists())
-                                            {
+                                            if(dataSnapshot.exists()) {
                                                 startActivity(new Intent(SignInActivity.this,HomeActivity.class));
-                                            }
-                                            else
-                                            {
+                                            } else {
                                                 Intent intent=new Intent(SignInActivity.this,SignUpActivity.class);
                                                 intent.putExtra("mobile",mobile);
                                                 intent.putExtra("email",email);
@@ -305,14 +315,21 @@ public class SignInActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                            progressDialog.dismiss();
+                                            Toast.makeText(SignInActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     });
+                                } else {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(SignInActivity.this, "Server May Busy! Try Again Later Or Contact Support", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
 
 
+                    } else {
+                        progressDialog.dismiss();
+                        Toast.makeText(SignInActivity.this, "Server May Busy! Try Again Later Or Contact Support", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

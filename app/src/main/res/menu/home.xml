@@ -6,10 +6,5 @@
         android:orderInCategory="100"
         android:title="View Running Trip"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/logoutButton"
-        android:orderInCategory="100"
-        android:title="Log Out"
-        app:showAsAction="never" />
 
 </menu>

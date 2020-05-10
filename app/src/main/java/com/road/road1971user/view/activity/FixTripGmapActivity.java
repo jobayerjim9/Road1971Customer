@@ -237,7 +237,11 @@ public class FixTripGmapActivity extends AppCompatActivity implements OnMapReady
                     }
                     destination=new MarkerOptions().position(new LatLng(Objects.requireNonNull(place.getLatLng()).latitude,place.getLatLng().longitude)).title(place.getName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).draggable(true);
                     destinationMarker=mMap.addMarker(destination);
-                    new FetchURL(FixTripGmapActivity.this).execute(getUrl(source.getPosition(), destination.getPosition(), "driving"), "driving");
+                    try {
+                        new FetchURL(FixTripGmapActivity.this).execute(getUrl(source.getPosition(), destination.getPosition(), "driving"), "driving");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     LatLngBounds.Builder builder = new LatLngBounds.Builder();
                     builder.include(source.getPosition());
                     builder.include(destination.getPosition());

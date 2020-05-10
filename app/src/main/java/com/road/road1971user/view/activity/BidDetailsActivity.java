@@ -44,7 +44,8 @@ import com.road.road1971user.model.RentTruckData;
 
 import java.util.ArrayList;
 
-public class BidDetailsActivity extends AppCompatActivity implements OnMapReadyCallback, TaskLoadedCallback {
+public class
+BidDetailsActivity extends AppCompatActivity implements OnMapReadyCallback, TaskLoadedCallback {
     private TextView tripStartsEnd,typeBid,itemLabourBid,totalVehicleBid,customerRequirementBid;
     private String type;
     private ArrayList<BidDetailsModel> bidDetailsModels=new ArrayList<>();

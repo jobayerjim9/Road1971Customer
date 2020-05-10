@@ -26,14 +26,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailInput"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Enter Email">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -47,7 +47,7 @@
                 android:id="@+id/passwordInput1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Enter Password">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -61,7 +61,7 @@
                 android:id="@+id/passwordInput2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Enter Password">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -153,7 +153,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/enter_phone_number">
+                android:hint="@string/enter_phone_number"
+                tools:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

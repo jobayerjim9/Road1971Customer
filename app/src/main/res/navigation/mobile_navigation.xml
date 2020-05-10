@@ -24,12 +24,6 @@
         tools:layout="@layout/fragment_payment" />
 
     <fragment
-        android:id="@+id/nav_share"
-        android:name="com.road.road1971user.view.fragment.nav.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
-
-    <fragment
         android:id="@+id/nav_contact"
         android:name="com.road.road1971user.view.fragment.nav.ContactFragment"
         android:label="@string/menu_send"

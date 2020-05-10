@@ -37,7 +37,7 @@ public class SplashActivity extends AppCompatActivity {
         anim = new RotateAnimation(0f, 350f, 15f, 15f);
         anim.setInterpolator(new LinearInterpolator());
         anim.setRepeatCount(Animation.INFINITE);
-        anim.setDuration(2000);
+        anim.setDuration(1000);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -47,19 +47,17 @@ public class SplashActivity extends AppCompatActivity {
             {
                 final ImageView splash = findViewById(R.id.logoSplash);
                 splash.startAnimation(anim);
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    checkSignUp();
+                } else {
+                    startActivity(new Intent(SplashActivity.this, SignInActivityEmail.class));
+                    finish();
+                }
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         splash.setAnimation(null);
-                        if(FirebaseAuth.getInstance().getCurrentUser()!=null)
-                        {
-                            checkSignUp();
-                        }
-                        else {
-                            startActivity(new Intent(SplashActivity.this, SignInActivityEmail.class));
-                            finish();
-                        }
-
                     }
                 },1000);
             }
@@ -111,7 +109,7 @@ public class SplashActivity extends AppCompatActivity {
                             checkSignUp();
                         }
                         else {
-                            startActivity(new Intent(SplashActivity.this, SignInActivity.class));
+                            startActivity(new Intent(SplashActivity.this, SignInActivityEmail.class));
                             finish();
                         }
 

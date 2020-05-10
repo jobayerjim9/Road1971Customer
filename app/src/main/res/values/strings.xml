@@ -164,7 +164,7 @@
         <item>50 Seat</item>
 
     </string-array>
-
+    <string name="office_location">Flat-2B, 1st Floor, House-8, Block-D\nAvenue Road(70feet), Eastern Housing \nPallabi, Rupnagar, Mirpur\nDhaka-1216, Bangladesh</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="truck_load_from">Truck Load From</string>
@@ -174,7 +174,7 @@
     <string name="_5_ton_fish">5 Ton Fish</string>
     <string name="submit">Review</string>
     <string name="add_labour">Add Labour</string>
-    <string name="api_key">AIzaSyCONgW76ASDWmhsnJtPCvBEmXFK5qtW4GI</string>
+    <string name="api_key">AIzaSyD9cXmVfYx8H9ulMictnIDJfR1L9SMdhvA</string>
     <string name="how_many_car_do_you_need">How Many Car Do You Need?</string>
     <string name="pickup_location">Pickup Location</string>
     <string name="drop_location">Drop Location</string>

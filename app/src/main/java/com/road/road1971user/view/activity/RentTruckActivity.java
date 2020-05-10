@@ -23,6 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
@@ -43,6 +44,7 @@ import java.util.Objects;
 public class RentTruckActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     private int month,year,day,hours=-1,minute,labour;
     private double slat,slng,dlat,dlng;
+
     //private double slat,slng,dlat,dlng;
     private String loadLocation,unloadLocation,truckSize,truckType,productType;
 
@@ -63,6 +65,7 @@ public class RentTruckActivity extends AppCompatActivity implements DatePickerDi
     }
 
     private void initializeView() {
+        Places.initialize(getApplicationContext(), getResources().getString(R.string.api_key));
         Button submitButtonTruck=findViewById(R.id.submitButtonTruck);
         submitButtonTruck.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,0 +1,146 @@
+{
+  "project_info": {
+    "project_number": "231528010020",
+    "firebase_url": "https://road-production.firebaseio.com",
+    "project_id": "road-production",
+    "storage_bucket": "road-production.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231528010020:android:779717049c2dec25aaa3b1",
+        "android_client_info": {
+          "package_name": "com.road.road1971user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231528010020-t5e04n36n5l94djuvt50uc0uek0fv876.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.road.road1971user",
+            "certificate_hash": "51183ae797d1df74b3fd53fc7357ab863c8d751b"
+          }
+        },
+        {
+          "client_id": "231528010020-sd7ogb75neqn6jojgj6odn7bse8or1s8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.road.road1971user",
+            "certificate_hash": "b55b72fb3de1517a2a820302f175f7f6ee11f44e"
+          }
+        },
+        {
+          "client_id": "231528010020-hdlpesqdifk0ej3ukp8bc0b82nnuaajg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzR2n3vXMggaKjTONCDnurEVNY-M1SB_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231528010020-hdlpesqdifk0ej3ukp8bc0b82nnuaajg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231528010020:android:14066f3b362f5452aaa3b1",
+        "android_client_info": {
+          "package_name": "com.road.roadagent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231528010020-qp8h1vpba83soj6h5h7e4ec3bnb0ecfd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.road.roadagent",
+            "certificate_hash": "84617dfd67ff6d862eae966c14f8b4b306ccb900"
+          }
+        },
+        {
+          "client_id": "231528010020-qjbiil21depbn02an7i5ca77o2hvtbf2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.road.roadagent",
+            "certificate_hash": "b55b72fb3de1517a2a820302f175f7f6ee11f44e"
+          }
+        },
+        {
+          "client_id": "231528010020-hdlpesqdifk0ej3ukp8bc0b82nnuaajg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzR2n3vXMggaKjTONCDnurEVNY-M1SB_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231528010020-hdlpesqdifk0ej3ukp8bc0b82nnuaajg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231528010020:android:38705102d8845408aaa3b1",
+        "android_client_info": {
+          "package_name": "com.road.roaddrive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231528010020-ifj2pksrch3p2rk5c8tr8fd3lq3lk5u7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.road.roaddrive",
+            "certificate_hash": "16b1bb28ac3b188791e45a245ee1174e68b0b44a"
+          }
+        },
+        {
+          "client_id": "231528010020-6jnmmkv9it2crne5gk9n51ueh16jkasg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.road.roaddrive",
+            "certificate_hash": "b55b72fb3de1517a2a820302f175f7f6ee11f44e"
+          }
+        },
+        {
+          "client_id": "231528010020-hdlpesqdifk0ej3ukp8bc0b82nnuaajg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzR2n3vXMggaKjTONCDnurEVNY-M1SB_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231528010020-hdlpesqdifk0ej3ukp8bc0b82nnuaajg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
